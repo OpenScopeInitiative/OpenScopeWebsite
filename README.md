@@ -1,2 +1,2 @@
 # OpenScopeWebsite
-Official website of the Open Scope Initiative
+The official website of OpenScope,  a student-led science communication initiative
