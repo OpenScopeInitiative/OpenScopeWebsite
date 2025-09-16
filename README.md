@@ -1,3 +1,3 @@
-# OpenScopeWebsite
+# OpenScope
 
-The official website of OpenScope, a student-led science communication initiative
+The official website of OpenScope, a student-led science communication initiative.
