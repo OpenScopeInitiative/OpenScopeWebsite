@@ -1,0 +1,18 @@
+{
+  "name": "openscope-website",
+  "version": "1.0.0",
+  "description": "OpenScope - Student science communication platform",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "dependencies": {
+    "node-fetch": "^2.6.7"
+  },
+  "engines": {
+    "node": ">=14.x"
+  },
+  "devDependencies": {
+    "netlify-cli": "^23.2.1"
+  }
+}

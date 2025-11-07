@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head><!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-B6HP90EZLW"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag() { dataLayer.push(arguments); }
+        gtag('js', new Date());
+
+        gtag('config', 'G-B6HP90EZLW');
+    </script>
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+    <link rel="manifest" href="/site.webmanifest">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Articles - OpenScope</title>
+    <link rel="stylesheet" href="../assets/css/style.css">
+    <link rel="stylesheet" href="../assets/css/articles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Noto+Sans:ital,wght@0,100..900;1,100..900&family=Playfair+Display:ital,wght@0,400..900;1,400..900&family=Roboto:ital,wght@0,100..900;1,100..900&family=ZCOOL+QingKe+HuangYou&display=swap"
+        rel="stylesheet">>
+</head>
+</head>
+
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="container">
+            <div class="logo">
+                <a href="../../index.html">
+                    <img src="../../src/assets/images/logo-light.svg" alt="OpenScope logo" style="height:42px;">
+                </a>
+            </div>
+            <div class="nav-links">
+                <ul>
+                    <li><a href="../../index.html">Home</a></li>
+                    <li><a href="about.html">About</a></li>
+                    <li><a href="articles.html" class="active">Articles</a></li>
+                    <li><a href="tools.html">Tools</a></li>
+                    <li><a href="#" id="chat-toggle" class="chat-btn"><i class="fas fa-robot"></i> AI Chat</a></li>
+                </ul>
+            </div>
+            <div class="auth-buttons">
+                <button class="btn btn-secondary login-btn">Log In</button>
+                <button class="btn btn-primary signup-btn">Sign Up</button>
+            </div>
+            <div class="hamburger">
+                <span class="bar"></span>
+                <span class="bar"></span>
+                <span class="bar"></span>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="page-hero">
+        <div class="container">
+            <div class="page-hero-content">
+                <h1>Student Science <span class="gradient-text">Articles</span></h1>
+                <p>Explore articles written by students around the world—clear, creative, and curious science
+                    communication.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Articles Filter Section -->
+    <section class="articles-filter">
+        <div class="container">
+            <div class="filter-container">
+                <div class="search-box">
+                    <input type="text" id="search-articles" placeholder="Search articles...">
+                    <button id="search-btn"><i class="fas fa-search"></i></button>
+                </div>
+                <div class="category-filter">
+                    <label for="category-select">Filter by Category:</label>
+                    <select id="category-select">
+                        <option value="all">All Categories</option>
+                        <option value="investing">Investing</option>
+                        <option value="budgeting">Budgeting</option>
+                        <option value="saving">Saving</option>
+                        <option value="credit">Credit</option>
+                        <option value="income">Income</option>
+                    </select>
+                </div>
+                <div class="sort-filter">
+                    <label for="sort-select">Sort by:</label>
+                    <select id="sort-select">
+                        <option value="newest">Newest First</option>
+                        <option value="oldest">Oldest First</option>
+                        <option value="a-z">A-Z</option>
+                        <option value="z-a">Z-A</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Articles Grid Section -->
+    <section class="articles-grid-section">
+        <div class="container">
+            <div class="articles-grid" id="articles-grid">
+                <!-- Articles will be loaded dynamically here -->
+                <div class="loading-articles">
+                    <div class="spinner"></div>
+                    <p>Loading articles...</p>
+                </div>
+            </div>
+            <div class="pagination">
+                <button class="pagination-btn" id="prev-page" disabled><i class="fas fa-chevron-left"></i>
+                    Previous</button>
+                <div class="page-numbers" id="page-numbers">
+                    <button class="page-number active">1</button>
+                </div>
+                <button class="pagination-btn" id="next-page" disabled>Next <i
+                        class="fas fa-chevron-right"></i></button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Writer CTA Section -->
+    <section class="writer-cta" style="display:none;">
+        <div class="container">
+            <div class="cta-content">
+                <h2>Want to <span style="font-style:italic;">Write</span> for OpenScope?</h2>
+                <p>Share your science writing and research with our student-led community.</p>
+                <a href="https://forms.gle/REPLACE_WITH_YOUR_FORM" class="btn" target="_blank" rel="noopener">Become a
+                    Writer</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Newsletter Section -->
+    <section class="newsletter">
+        <div class="container">
+            <div class="newsletter-content">
+                <h2>Join Our <span class="gradient-text">Newsletter</span></h2>
+                <p>Get weekly student science highlights, articles, and opportunities delivered straight to your inbox.
+                </p>
+                <form id="newsletter-form" class="newsletter-form">
+                    <input type="email" placeholder="Your email address" required>
+                    <button type="submit" class="btn btn-primary">Subscribe</button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-logo">
+                    <h2>Fin<span>Rise</span></h2>
+                    <p>OpenScope is a student-led science communication initiative. We are not a 501(c)(3) nonprofit and
+                        do not engage in fundraising; our focus is on open collaboration and community impact.</p>
+                </div>
+                <div class="footer-links">
+                    <div class="footer-links-column">
+                        <h3>Navigation</h3>
+                        <ul>
+                            <li><a href="index.html">Home</a></li>
+                            <li><a href="about.html">About</a></li>
+                            <li><a href="articles.html">Articles</a></li>
+                            <li><a href="tools.html">Tools</a></li>
+                        </ul>
+                    </div>
+                    <!--<div class="footer-links-column">
+                        <h3>Resources</h3>
+                        <ul>
+                           Coming soon!
+                        </ul>
+                    </div>
+                    <div class="footer-links-column">
+                        <h3>Company</h3>
+                        <ul>
+                            Coming soon!
+                        </ul>
+                    </div>
+                    <div class="footer-links-column">
+                        <h3>Legal</h3>
+                        <ul>
+                            <li><a href="#">Terms of Service</a></li>
+                            <li><a href="#">Privacy Policy</a></li>
+                            <li><a href="#">Cookie Policy</a></li>
+                            <li><a href="#">Disclaimer</a></li>
+                        </ul>
+                    </div>-->
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 OpenScope. All rights reserved.</p>
+                <div class="social-links">
+                    <a href="https://instagram.com/openscope.team" aria-label="OpenScope Instagram"><i
+                            class="fab fa-instagram"></i></a>
+                    <a href="https://twitter.com/OpenScopeWrite" aria-label="OpenScope Twitter"><i
+                            class="fab fa-twitter"></i></a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- AI Chatbot -->
+    <div class="chatbot-container" id="chatbot-container">
+        <div class="chatbot-header">
+            <h3><i class="fas fa-robot"></i> OpenScope AI Assistant</h3>
+            <button id="close-chat" class="close-btn"><i class="fas fa-times"></i></button>
+        </div>
+        <div class="chatbot-messages" id="chatbot-messages">
+            <div class="message bot-message">
+                <div class="message-content">
+                    <p>Hi there! I'm the OpenScope AI Assistant. Ask me about articles, topics, or science communication
+                        tips.</p>
+                </div>
+            </div>
+        </div>
+        <div class="chatbot-input">
+            <input type="text" id="chat-input" placeholder="Ask me about articles, topics, or science communication...">
+            <button id="send-message" class="send-btn"><i class="fas fa-paper-plane"></i></button>
+        </div>
+    </div>
+
+    <!-- Auth Modals -->
+    <div class="modal" id="login-modal">
+        <div class="modal-content">
+            <span class="close-modal">&times;</span>
+            <h2>Log In</h2>
+            <form id="login-form">
+                <div class="form-group">
+                    <label for="login-email">Email</label>
+                    <input type="email" id="login-email" required>
+                </div>
+                <div class="form-group">
+                    <label for="login-password">Password</label>
+                    <input type="password" id="login-password" required>
+                </div>
+                <button type="submit" class="btn btn-primary">Log In</button>
+            </form>
+            <p class="modal-footer">Don't have an account? <a href="#" id="signup-link">Sign Up</a></p>
+        </div>
+    </div>
+
+    <div class="modal" id="signup-modal">
+        <div class="modal-content">
+            <span class="close-modal">&times;</span>
+            <h2>Sign Up</h2>
+            <form id="signup-form">
+                <div class="form-group">
+                    <label for="signup-name">Full Name</label>
+                    <input type="text" id="signup-name" required>
+                </div>
+                <div class="form-group">
+                    <label for="signup-email">Email</label>
+                    <input type="email" id="signup-email" required>
+                </div>
+                <div class="form-group">
+                    <label for="signup-password">Password</label>
+                    <input type="password" id="signup-password" required>
+                </div>
+                <div class="form-group">
+                    <label for="signup-confirm-password">Confirm Password</label>
+                    <input type="password" id="signup-confirm-password" required>
+                </div>
+                <button type="submit" class="btn btn-primary">Sign Up</button>
+            </form>
+            <p class="modal-footer">Already have an account? <a href="#" id="login-link">Log In</a></p>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="../utils/supabase.js"></script>
+    <script src="../utils/groq.js"></script>
+    <script src="../assets/js/main.js"></script>
+    <script src="../assets/js/articles.js"></script>
+</body>
+
+</html>

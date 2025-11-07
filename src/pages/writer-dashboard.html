@@ -1,0 +1,520 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head><!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-B6HP90EZLW"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag() { dataLayer.push(arguments); }
+        gtag('js', new Date());
+
+        gtag('config', 'G-B6HP90EZLW');
+    </script>
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+    <link rel="manifest" href="/site.webmanifest">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Writer Dashboard - OpenScope</title>
+    <link rel="stylesheet" href="../assets/css/style.css">
+    <link rel="stylesheet" href="../assets/css/articles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Noto+Sans:ital,wght@0,100..900;1,100..900&family=Playfair+Display:ital,wght@0,400..900;1,400..900&family=Roboto:ital,wght@0,100..900;1,100..900&family=ZCOOL+QingKe+HuangYou&display=swap"
+        rel="stylesheet">
+</head>
+<script src="https://cdn.jsdelivr.net/npm/showdown@2.1.0/dist/showdown.min.js"></script>
+<style>
+    .profile-redirect {
+        text-align: center;
+        padding: var(--spacing-xl);
+        background-color: var(--light-color);
+        border-radius: var(--border-radius-lg);
+        margin-bottom: var(--spacing-xl);
+    }
+
+    .profile-redirect p {
+        margin-bottom: var(--spacing-lg);
+        color: var(--gray-dark);
+        font-size: 1.1rem;
+    }
+
+    .profile-redirect .btn {
+        padding: var(--spacing-md) var(--spacing-xl);
+        font-weight: 600;
+    }
+</style>
+</head>
+
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="container">
+            <div class="logo">
+                <a href="../../index.html">
+                    <img src="../../src/assets/images/logo-light.svg" alt="OpenScope logo" style="height:42px;">
+                </a>
+            </div>
+            <div class="nav-links">
+                <ul>
+                    <li><a href="../../index.html">Home</a></li>
+                    <li><a href="about.html">About</a></li>
+                    <li><a href="articles.html" class="active">Articles</a></li>
+                    <li><a href="tools.html">Tools</a></li>
+                    <li><a href="#" id="chat-toggle" class="chat-btn"><i class="fas fa-robot"></i> AI Chat</a></li>
+                </ul>
+            </div>
+            <div class="auth-buttons">
+                <button class="btn btn-secondary login-btn">Log In</button>
+                <button class="btn btn-primary signup-btn">Sign Up</button>
+            </div>
+            <div class="hamburger">
+                <span class="bar"></span>
+                <span class="bar"></span>
+                <span class="bar"></span>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Dashboard Header -->
+    <section class="dashboard-header">
+        <div class="container" style="padding-top:75px;">
+            <h1 class="dashboard-title">Writer Dashboard</h1>
+            <p class="dashboard-subtitle">Manage your articles and create new content</p>
+        </div>
+    </section>
+
+    <!-- Dashboard Content -->
+    <section class="dashboard-content">
+        <div class="container">
+            <div class="dashboard-grid">
+                <!-- Dashboard Sidebar -->
+                <div class="dashboard-sidebar">
+                    <div class="dashboard-nav">
+                        <a href="#" class="dashboard-nav-item active" data-section="articles-section">
+                            <i class="fas fa-file-alt"></i>
+                            <span>My Articles</span>
+                        </a>
+                        <a href="#" class="dashboard-nav-item" data-section="editor-section">
+                            <i class="fas fa-edit"></i>
+                            <span>Create Article</span>
+                        </a>
+                        <a href="#" class="dashboard-nav-item" data-section="stats-section"
+                            style="pointer-events:none;opacity:0.4;">
+                            <i class="fas fa-chart-bar"></i>
+                            <span>Analytics</span>
+                        </a>
+                        <a href="#" class="dashboard-nav-item" data-section="profile-section">
+                            <i class="fas fa-user"></i>
+                            <span>Profile</span>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Dashboard Main Content -->
+                <div class="dashboard-main">
+                    <!-- Articles Section -->
+                    <div class="dashboard-section active" id="articles-section">
+                        <div class="dashboard-section-header">
+                            <h2 class="dashboard-section-title">My Articles</h2>
+                            <p class="dashboard-section-subtitle">Manage your published and draft articles</p>
+                        </div>
+
+                        <a href="#" class="btn btn-primary create-article-btn" id="create-article-btn">
+                            <i class="fas fa-plus"></i> Create New Article
+                        </a>
+
+                        <div class="articles-table-container">
+                            <table class="articles-table">
+                                <thead>
+                                    <tr>
+                                        <th>Title</th>
+                                        <th>Category</th>
+                                        <th>Date</th>
+                                        <th>Status</th>
+                                        <th>Actions</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <!-- Articles will be loaded dynamically -->
+                                    <tr>
+                                        <td>Getting Started with Investing: A Gen Z Guide</td>
+                                        <td>Investing</td>
+                                        <td>June 15, 2025</td>
+                                        <td><span class="article-status status-published">Published</span></td>
+                                        <td>
+                                            <div class="article-actions">
+                                                <a href="article.html?id=1" class="article-action view" title="View">
+                                                    <i class="fas fa-eye"></i>
+                                                </a>
+                                                <a href="#" class="article-action edit" title="Edit" data-id="1">
+                                                    <i class="fas fa-edit"></i>
+                                                </a>
+                                                <a href="#" class="article-action delete" title="Delete" data-id="1">
+                                                    <i class="fas fa-trash"></i>
+                                                </a>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>The 50/30/20 Rule: Budgeting Made Simple</td>
+                                        <td>Budgeting</td>
+                                        <td>June 10, 2025</td>
+                                        <td><span class="article-status status-published">Published</span></td>
+                                        <td>
+                                            <div class="article-actions">
+                                                <a href="article.html?id=2" class="article-action view" title="View">
+                                                    <i class="fas fa-eye"></i>
+                                                </a>
+                                                <a href="#" class="article-action edit" title="Edit" data-id="2">
+                                                    <i class="fas fa-edit"></i>
+                                                </a>
+                                                <a href="#" class="article-action delete" title="Delete" data-id="2">
+                                                    <i class="fas fa-trash"></i>
+                                                </a>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+
+                    <!-- Editor Section -->
+                    <div class="dashboard-section" id="editor-section">
+                        <div class="dashboard-section-header">
+                            <h2 class="dashboard-section-title">Create Article</h2>
+                            <p class="dashboard-section-subtitle">Write and publish a new article</p>
+                        </div>
+
+                        <div class="editor-container">
+                            <div class="editor-form-container">
+                                <form id="editor-form">
+                                    <div class="form-group">
+                                        <label for="article-title">Title</label>
+                                        <input type="text" id="article-title" placeholder="Enter article title"
+                                            required>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label for="article-category">Category</label>
+                                        <select id="article-category" required>
+                                            <option value="">Select a category</option>
+                                            <option value="Investing">Investing</option>
+                                            <option value="Budgeting">Budgeting</option>
+                                            <option value="Saving">Saving</option>
+                                            <option value="Credit">Credit</option>
+                                            <option value="Income">Income</option>
+                                        </select>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label for="article-summary">Summary (1-2 sentences)</label>
+                                        <textarea id="article-summary"
+                                            placeholder="Enter a brief summary of your article" rows="2"
+                                            required></textarea>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label for="article-image">Featured Image URL</label>
+                                        <input type="text" id="article-image" placeholder="Enter image URL" required>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label for="article-content">Content (Markdown)</label>
+                                        <textarea id="article-content"
+                                            placeholder="Write your article content using Markdown" rows="15"
+                                            required></textarea>
+                                    </div>
+
+                                    <div class="editor-actions">
+                                        <button type="button" class="btn btn-secondary"
+                                            id="preview-btn">Preview</button>
+                                        <button type="submit" class="btn btn-primary">Publish Article</button>
+                                    </div>
+                                </form>
+                            </div>
+
+                            <div class="editor-preview" id="markdown-preview">
+                                <!-- Markdown preview will be shown here -->
+                                <div class="preview-placeholder">
+                                    <p>Your article preview will appear here as you type.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Stats Section -->
+                    <div class="dashboard-section" id="stats-section">
+                        <div class="dashboard-section-header">
+                            <h2 class="dashboard-section-title">Analytics</h2>
+                            <p class="dashboard-section-subtitle">View statistics for your articles</p>
+                        </div>
+
+
+
+                        <div class="stats-container">
+                            <div class="stats-summary">
+                                <div class="stat-card">
+                                    <div class="stat-icon">
+                                        <i class="fas fa-file-alt"></i>
+                                    </div>
+                                    <div class="stat-info">
+                                        <h3>Total Articles</h3>
+                                        <p>0</p>
+                                    </div>
+                                </div>
+
+                                <div class="stat-card">
+                                    <div class="stat-icon">
+                                        <i class="fas fa-eye"></i>
+                                    </div>
+                                    <div class="stat-info">
+                                        <h3>Total Views</h3>
+                                        <p>0</p>
+                                    </div>
+                                </div>
+
+                                <div class="stat-card">
+                                    <div class="stat-icon">
+                                        <i class="fas fa-comment"></i>
+                                    </div>
+                                    <div class="stat-info">
+                                        <h3>Total Comments</h3>
+                                        <p>0</p>
+                                    </div>
+                                </div>
+
+                                <div class="stat-card">
+                                    <div class="stat-icon">
+                                        <i class="fas fa-share-alt"></i>
+                                    </div>
+                                    <div class="stat-info">
+                                        <h3>Total Shares</h3>
+                                        <p>0</p>
+                                    </div>
+                                </div>
+                            </div>
+
+
+                        </div>
+                    </div>
+
+                    <!-- Profile Section -->
+                    <div class="dashboard-section" id="profile-section">
+                        <div class="dashboard-section-header">
+                            <h2 class="dashboard-section-title">Profile</h2>
+                            <p class="dashboard-section-subtitle">Manage your writer profile</p>
+                        </div>
+
+                        <div class="profile-redirect">
+                            <p>To manage your profile settings, please visit your profile page.</p>
+                            <a href="profile.html" class="btn btn-primary">Go to Profile Page</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-logo">
+                    <img src="../assets/images/logo-light.svg" alt="OpenScope logo" style="height:34px;">
+                    <p>OpenScope is a student-led science communication initiative. We are not a 501(c)(3) nonprofit and
+                        do not engage in fundraising; our focus is on open collaboration and community impact.</p>
+                </div>
+                <div class="footer-links">
+                    <div class="footer-links-column">
+                        <h3>Navigation</h3>
+                        <ul>
+                            <li><a href="index.html">Home</a></li>
+                            <li><a href="about.html">About</a></li>
+                            <li><a href="articles.html">Articles</a></li>
+                            <li><a href="tools.html">Tools</a></li>
+                        </ul>
+                    </div>
+                    <!--<div class="footer-links-column">
+                        <h3>Resources</h3>
+                        <ul>
+                           Coming soon!
+                        </ul>
+                    </div>
+                    <div class="footer-links-column">
+                        <h3>Company</h3>
+                        <ul>
+                            Coming soon!
+                        </ul>
+                    </div>
+                    <div class="footer-links-column">
+                        <h3>Legal</h3>
+                        <ul>
+                            <li><a href="#">Terms of Service</a></li>
+                            <li><a href="#">Privacy Policy</a></li>
+                            <li><a href="#">Cookie Policy</a></li>
+                            <li><a href="#">Disclaimer</a></li>
+                        </ul>
+                    </div>-->
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 OpenScope. All rights reserved.</p>
+                <div class="social-links">
+                    <a href="https://instagram.com/openscope.team" aria-label="OpenScope Instagram"><i
+                            class="fab fa-instagram"></i></a>
+                    <a href="https://twitter.com/OpenScopeWrite" aria-label="OpenScope Twitter"><i
+                            class="fab fa-twitter"></i></a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- AI Chatbot -->
+    <div class="chatbot-container" id="chatbot-container">
+        <div class="chatbot-header">
+            <h3><i class="fas fa-robot"></i> OpenScope AI Assistant</h3>
+            <button id="close-chat" class="close-btn"><i class="fas fa-times"></i></button>
+        </div>
+        <div class="chatbot-messages" id="chatbot-messages">
+            <div class="message bot-message">
+                <div class="message-content">
+                    <p>Hi there! I'm the OpenScope AI Assistant. Ask me about articles, topics, or science communication
+                        tips.</p>
+                </div>
+            </div>
+        </div>
+        <div class="chatbot-input">
+            <input type="text" id="chat-input" placeholder="Ask me anything about science...">
+            <button id="send-message" class="send-btn"><i class="fas fa-paper-plane"></i></button>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="../utils/supabase.js"></script>
+    <script src="../utils/groq.js"></script>
+    <script src="../utils/analytics.js"></script>
+    <script src="../assets/js/main.js"></script>
+    <script src="../assets/js/articles.js"></script>
+
+    <script>
+        // Initialize markdown preview
+        document.addEventListener('DOMContentLoaded', () => {
+            const markdownInput = document.getElementById('article-content');
+            const markdownPreview = document.getElementById('markdown-preview');
+            const previewBtn = document.getElementById('preview-btn');
+            const editorForm = document.getElementById('editor-form');
+
+            if (markdownInput && markdownPreview) {
+                // Update preview as user types
+                markdownInput.addEventListener('input', updatePreview);
+
+                // Preview button
+                if (previewBtn) {
+                    previewBtn.addEventListener('click', () => {
+                        updatePreview();
+
+                        // Scroll preview into view on mobile
+                        if (window.innerWidth < 992) {
+                            markdownPreview.scrollIntoView({ behavior: 'smooth' });
+                        }
+                    });
+                }
+
+                // Create article button
+                const createArticleBtn = document.getElementById('create-article-btn');
+                if (createArticleBtn) {
+                    createArticleBtn.addEventListener('click', (e) => {
+                        e.preventDefault();
+
+                        // Show editor section
+                        document.querySelectorAll('.dashboard-nav-item').forEach(item => {
+                            item.classList.remove('active');
+                            if (item.getAttribute('data-section') === 'editor-section') {
+                                item.classList.add('active');
+                            }
+                        });
+
+                        document.querySelectorAll('.dashboard-section').forEach(section => {
+                            section.classList.remove('active');
+                            if (section.id === 'editor-section') {
+                                section.classList.add('active');
+                            }
+                        });
+
+                        // Reset form if it exists
+                        if (editorForm) {
+                            editorForm.reset();
+                            editorForm.removeAttribute('data-article-id');
+                            document.querySelector('.dashboard-section-title').textContent = 'Create Article';
+                            document.querySelector('#editor-form button[type="submit"]').textContent = 'Publish Article';
+                            updatePreview();
+                        }
+                    });
+                }
+
+                // Dashboard navigation
+                document.querySelectorAll('.dashboard-nav-item').forEach(item => {
+                    item.addEventListener('click', (e) => {
+                        e.preventDefault();
+
+                        // Get section ID
+                        const sectionId = item.getAttribute('data-section');
+
+                        // Update active nav item
+                        document.querySelectorAll('.dashboard-nav-item').forEach(navItem => {
+                            navItem.classList.remove('active');
+                        });
+                        item.classList.add('active');
+
+                        // Show selected section
+                        document.querySelectorAll('.dashboard-section').forEach(section => {
+                            section.classList.remove('active');
+                        });
+                        document.getElementById(sectionId).classList.add('active');
+                    });
+                });
+
+                // Edit article buttons
+                document.querySelectorAll('.article-action.edit').forEach(button => {
+                    button.addEventListener('click', (e) => {
+                        e.preventDefault();
+
+                        const articleId = button.getAttribute('data-id');
+
+                        // Redirect to editor with article ID
+                        window.location.href = `writer-dashboard.html?edit=${articleId}`;
+                    });
+                });
+            }
+
+            function updatePreview() {
+                if (!markdownInput || !markdownPreview) return;
+
+                const markdown = markdownInput.value;
+
+                if (markdown.trim() === '') {
+                    markdownPreview.innerHTML = `
+                        <div class="preview-placeholder">
+                            <p>Your article preview will appear here as you type.</p>
+                        </div>
+                    `;
+                    return;
+                }
+
+                // Convert markdown to HTML
+                const converter = new showdown.Converter();
+                const html = converter.makeHtml(markdown);
+
+                markdownPreview.innerHTML = html;
+            }
+        });
+    </script>
+</body>
+
+</html>

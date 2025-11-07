@@ -1,0 +1,423 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head><!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-B6HP90EZLW"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag() { dataLayer.push(arguments); }
+        gtag('js', new Date());
+
+        gtag('config', 'G-B6HP90EZLW');
+    </script>
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+    <link rel="manifest" href="/site.webmanifest">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Saved Articles - OpenScope</title>
+    <link rel="stylesheet" href="../assets/css/style.css">
+    <link rel="stylesheet" href="../assets/css/articles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Noto+Sans:ital,wght@0,100..900;1,100..900&family=Playfair+Display:ital,wght@0,400..900;1,400..900&family=Roboto:ital,wght@0,100..900;1,100..900&family=ZCOOL+QingKe+HuangYou&display=swap"
+        rel="stylesheet">
+</head>
+<style>
+    .saved-articles-header {
+        text-align: center;
+        margin-bottom: var(--spacing-xl);
+    }
+
+    .saved-articles-header p {
+        max-width: 600px;
+        margin: 0 auto;
+        color: var(--gray-dark);
+    }
+
+    .saved-articles-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+        gap: var(--spacing-xl);
+        margin-bottom: var(--spacing-xxl);
+    }
+
+    .saved-article-card {
+        background-color: white;
+        border-radius: var(--border-radius-lg);
+        overflow: hidden;
+        box-shadow: var(--shadow-md);
+        transition: var(--transition-normal);
+        position: relative;
+    }
+
+    .saved-article-card:hover {
+        transform: translateY(-5px);
+        box-shadow: var(--shadow-lg);
+    }
+
+    .saved-article-image {
+        height: 200px;
+        overflow: hidden;
+    }
+
+    .saved-article-image img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        transition: var(--transition-normal);
+    }
+
+    .saved-article-card:hover .saved-article-image img {
+        transform: scale(1.05);
+    }
+
+    .saved-article-content {
+        padding: var(--spacing-lg);
+    }
+
+    .saved-article-tag {
+        display: inline-block;
+        padding: 0.25rem 0.75rem;
+        background: var(--primary-gradient);
+        color: white;
+        border-radius: var(--border-radius-full);
+        font-size: 0.75rem;
+        font-weight: 600;
+        margin-bottom: var(--spacing-md);
+    }
+
+    .saved-article-content h3 {
+        font-size: 1.25rem;
+        margin-bottom: var(--spacing-sm);
+    }
+
+    .saved-article-content p {
+        color: var(--gray-dark);
+        font-size: 0.9rem;
+        margin-bottom: var(--spacing-md);
+    }
+
+    .saved-article-actions {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    .read-more {
+        display: flex;
+        align-items: center;
+        gap: var(--spacing-xs);
+        font-weight: 600;
+        color: var(--primary-color);
+    }
+
+    .read-more i {
+        transition: var(--transition-fast);
+    }
+
+    .read-more:hover i {
+        transform: translateX(5px);
+    }
+
+    .remove-saved {
+        color: var(--danger-color);
+        cursor: pointer;
+        font-weight: 500;
+        font-size: 0.9rem;
+        transition: var(--transition-fast);
+    }
+
+    .remove-saved:hover {
+        text-decoration: underline;
+    }
+
+    .no-saved-articles {
+        text-align: center;
+        padding: var(--spacing-xxl) 0;
+    }
+
+    .no-saved-articles h2 {
+        margin-bottom: var(--spacing-md);
+    }
+
+    .no-saved-articles p {
+        color: var(--gray-dark);
+        margin-bottom: var(--spacing-lg);
+        max-width: 500px;
+        margin-left: auto;
+        margin-right: auto;
+    }
+</style>
+</head>
+
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="container">
+            <div class="logo">
+                <a href="../../index.html">
+                    <img src="../../src/assets/images/logo-light.svg" alt="OpenScope logo" style="height:42px;">
+                </a>
+            </div>
+            <div class="nav-links">
+                <ul>
+                    <li><a href="../../index.html">Home</a></li>
+                    <li><a href="about.html">About</a></li>
+                    <li><a href="articles.html">Articles</a></li>
+                    <li><a href="tools.html">Tools</a></li>
+                    <li><a href="#" id="chat-toggle" class="chat-btn"><i class="fas fa-robot"></i> AI Chat</a></li>
+                </ul>
+            </div>
+            <div class="auth-buttons">
+                <!-- Will be dynamically replaced based on auth state -->
+            </div>
+            <div class="hamburger">
+                <span class="bar"></span>
+                <span class="bar"></span>
+                <span class="bar"></span>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main style="padding-top: 120px; padding-bottom: var(--spacing-xxl);">
+        <div class="container">
+            <div class="saved-articles-header">
+                <h1>Your Saved <span class="gradient-text">Articles</span></h1>
+                <p>Articles you've saved for later reading. Bookmark pieces that interest you to build your personal
+                    OpenScope library.</p>
+            </div>
+
+            <div id="saved-articles-container" class="saved-articles-grid">
+                <!-- Will be populated with saved articles -->
+            </div>
+
+            <div id="no-saved-articles" class="no-saved-articles" style="display: none;">
+                <h2>No Saved Articles Yet</h2>
+                <p>You haven't saved any articles on this device. Browse our articles and click the "Save" button to add
+                    them to your saved articles.</p>
+                <a href="articles.html" class="btn btn-primary">Browse Articles</a>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-logo">
+                    <img src="../assets/images/logo-light.svg" alt="OpenScope logo" style="height:34px;">
+                    <p>OpenScope is a student-led science communication initiative. We are not a 501(c)(3) nonprofit and
+                        do not engage in fundraising; our focus is on open collaboration and community impact.</p>
+                </div>
+                <div class="footer-links">
+                    <div class="footer-links-column">
+                        <h3>Navigation</h3>
+                        <ul>
+                            <li><a href="index.html">Home</a></li>
+                            <li><a href="about.html">About</a></li>
+                            <li><a href="articles.html">Articles</a></li>
+                            <li><a href="tools.html">Tools</a></li>
+                        </ul>
+                    </div>
+                    <!--<div class="footer-links-column">
+                        <h3>Resources</h3>
+                        <ul>
+                           Coming soon!
+                        </ul>
+                    </div>
+                    <div class="footer-links-column">
+                        <h3>Company</h3>
+                        <ul>
+                            Coming soon!
+                        </ul>
+                    </div>
+                    <div class="footer-links-column">
+                        <h3>Legal</h3>
+                        <ul>
+                            <li><a href="#">Terms of Service</a></li>
+                            <li><a href="#">Privacy Policy</a></li>
+                            <li><a href="#">Cookie Policy</a></li>
+                            <li><a href="#">Disclaimer</a></li>
+                        </ul>
+                    </div>-->
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 OpenScope. All rights reserved.</p>
+                <div class="social-links">
+                    <a href="https://instagram.com/openscope.team" aria-label="OpenScope Instagram"><i
+                            class="fab fa-instagram"></i></a>
+                    <a href="https://twitter.com/OpenScopeWrite" aria-label="OpenScope Twitter"><i
+                            class="fab fa-twitter"></i></a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- AI Chatbot -->
+    <div class="chatbot-container" id="chatbot-container">
+        <div class="chatbot-header">
+            <h3><i class="fas fa-robot"></i> OpenScope AI Assistant</h3>
+            <button id="close-chat" class="close-btn"><i class="fas fa-times"></i></button>
+        </div>
+        <div class="chatbot-messages" id="chatbot-messages">
+            <div class="message bot-message">
+                <div class="message-content">
+                    <p>Hi there! I'm the OpenScope AI Assistant. Ask me about articles, topics, or science communication
+                        tips.</p>
+                </div>
+            </div>
+        </div>
+        <div class="chatbot-input">
+            <input type="text" id="chat-input" placeholder="Ask me about articles, topics, or science communication...">
+            <button id="send-message" class="send-btn"><i class="fas fa-paper-plane"></i></button>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="../utils/supabase.js"></script>
+    <script src="../utils/groq.js"></script>
+    <script src="../assets/js/main.js"></script>
+    <script>
+        // Saved Articles Page Specific JavaScript
+        document.addEventListener('DOMContentLoaded', () => {
+            // Check if user is logged in
+            async function checkAuth() {
+                try {
+                    const { data } = await supabase.auth.getSession();
+
+                    if (!data.session) {
+                        // Redirect to home if not logged in
+                        window.location.href = '../../index.html';
+                    } else {
+                        // Load saved articles
+                        loadSavedArticles(data.session.user.id);
+                    }
+                } catch (error) {
+                    console.error('Error checking auth:', error);
+                    showNotification('Error checking authentication status', 'error');
+                }
+            }
+
+            // Load Saved Articles
+            async function loadSavedArticles(userId) {
+                try {
+                    // Fetch saved articles from localStorage
+                    const savedArticleIds = JSON.parse(localStorage.getItem('savedArticles') || '[]');
+                    const container = document.getElementById('saved-articles-container');
+                    const noSavedArticles = document.getElementById('no-saved-articles');
+                    // If no saved articles, show empty state
+                    if (savedArticleIds.length === 0) {
+                        container.innerHTML = '';
+                        noSavedArticles.style.display = 'block';
+                        return;
+                    }
+
+                    // Fetch article details for each saved article ID
+                    const savedArticles = [];
+
+                    try {
+                        for (const id of savedArticleIds) {
+                            const article = await getArticleById(id);
+                            if (article) {
+                                savedArticles.push(article);
+                            }
+                        }
+                    } catch (error) {
+                        console.error('Error fetching saved article details:', error);
+                        showNotification('Error loading saved articles', 'error');
+                        container.innerHTML = '';
+                        noSavedArticles.style.display = 'block';
+                        return;
+                    }
+
+
+
+                    if (savedArticles.length > 0) {
+                        container.innerHTML = '';
+                        noSavedArticles.style.display = 'none';
+
+                        savedArticles.forEach(article => {
+                            const articleCard = document.createElement('div');
+                            articleCard.classList.add('saved-article-card');
+                            articleCard.setAttribute('data-id', article.id);
+
+                            articleCard.innerHTML = `
+                                <div class="saved-article-image">
+                                    <img src="${article.image_url}" alt="${article.title}">
+                                </div>
+                                <div class="saved-article-content">
+                                    <div class="saved-article-tag">${article.category}</div>
+                                    <h3>${article.title}</h3>
+                                    <p>${article.summary}</p>
+                                    <div class="saved-article-actions">
+                                        <a href="article.html?id=${article.id}" class="read-more">Read More <i class="fas fa-arrow-right"></i></a>
+                                        <span class="remove-saved" data-id="${article.id}">Remove</span>
+                                    </div>
+                                </div>
+                            `;
+
+                            container.appendChild(articleCard);
+                        });
+
+                        // Add event listeners to remove buttons
+                        document.querySelectorAll('.remove-saved').forEach(btn => {
+                            btn.addEventListener('click', () => {
+                                const articleId = btn.getAttribute('data-id');
+                                removeSavedArticle(articleId, userId);
+                            });
+                        });
+                    } else {
+                        container.innerHTML = '';
+                        noSavedArticles.style.display = 'block';
+                    }
+                } catch (error) {
+                    console.error('Error loading saved articles:', error);
+                    showNotification('Error loading saved articles', 'error');
+                }
+            }
+
+            // Remove Saved Article
+            async function removeSavedArticle(articleId, userId) {
+                try {
+                    // Get saved articles from localStorage
+                    const savedArticles = JSON.parse(localStorage.getItem('savedArticles') || '[]');
+
+                    // Remove the article ID from the saved articles
+                    const updatedSavedArticles = savedArticles.filter(id => id !== articleId);
+
+                    // Update localStorage
+                    localStorage.setItem('savedArticles', JSON.stringify(updatedSavedArticles));
+
+                    // Remove the article card from the DOM
+                    const articleCard = document.querySelector(`.saved-article-card[data-id="${articleId}"]`);
+                    if (articleCard) {
+                        articleCard.remove();
+                    }
+
+                    // Check if there are any saved articles left
+                    const container = document.getElementById('saved-articles-container');
+                    if (container.children.length === 0) {
+                        document.getElementById('no-saved-articles').style.display = 'block';
+                    }
+
+                    showNotification('Article removed from saved articles', 'success');
+                } catch (error) {
+                    console.error('Error removing saved article:', error);
+                    showNotification('Error removing article', 'error');
+                }
+            }
+
+            // Initialize
+            checkAuth();
+        });
+    </script>
+</body>
+
+</html>

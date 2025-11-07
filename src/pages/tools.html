@@ -1,0 +1,586 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head><!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-B6HP90EZLW"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag() { dataLayer.push(arguments); }
+        gtag('js', new Date());
+
+        gtag('config', 'G-B6HP90EZLW');
+    </script>
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+    <link rel="manifest" href="/site.webmanifest">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tools - OpenScope</title>
+    <link rel="stylesheet" href="../assets/css/style.css">
+    <link rel="stylesheet" href="../assets/css/tools.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Noto+Sans:ital,wght@0,100..900;1,100..900&family=Playfair+Display:ital,wght@0,400..900;1,400..900&family=Roboto:ital,wght@0,100..900;1,100..900&family=ZCOOL+QingKe+HuangYou&display=swap"
+        rel="stylesheet">
+</head>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="container">
+            <div class="logo">
+                <a href="../../index.html">
+                    <img src="../../src/assets/images/logo-light.svg" alt="OpenScope logo" style="height:42px;">
+                </a>
+            </div>
+            <div class="nav-links">
+                <ul>
+                    <li><a href="../../index.html">Home</a></li>
+                    <li><a href="about.html">About</a></li>
+                    <li><a href="articles.html">Articles</a></li>
+                    <li><a href="tools.html" class="active">Tools</a></li>
+                    <li><a href="#" id="chat-toggle" class="chat-btn"><i class="fas fa-robot"></i> AI Chat</a></li>
+                </ul>
+            </div>
+            <div class="auth-buttons">
+                <button class="btn btn-secondary login-btn">Log In</button>
+                <button class="btn btn-primary signup-btn">Sign Up</button>
+            </div>
+            <div class="hamburger">
+                <span class="bar"></span>
+                <span class="bar"></span>
+                <span class="bar"></span>
+            </div>
+        </div>
+    </nav>
+    <div class="tool-card" id="data-visualizer-card">
+        <div class="tool-icon">
+            <i class="fas fa-chart-area"></i>
+        </div>
+        <h3>Data Visualizer</h3>
+        <p>Quickly plot CSV or tabular data to create charts and figures for articles and classroom demonstrations.</p>
+        <button class="btn btn-primary launch-tool" data-tool="data-visualizer">Launch Tool</button>
+    </div>
+    <div class="tool-card" id="citation-helper-card">
+        <div class="tool-icon">
+            <i class="fas fa-book"></i>
+        </div>
+        <h3>Citation Helper</h3>
+        <p>Generate properly formatted citations (APA/MLA/Chicago) for articles and reference lists.</p>
+        <button class="btn btn-primary launch-tool" data-tool="citation-helper">Launch Tool</button>
+    </div>
+    <div class="tool-card" id="unit-converter-card">
+        <div class="tool-icon">
+            <i class="fas fa-weight-scale"></i>
+        </div>
+        <h3>Unit Converter</h3>
+        <p>Convert common units used in science (length, mass, energy, temperature) with quick copyable results.</p>
+        <button class="btn btn-primary launch-tool" data-tool="unit-converter">Launch Tool</button>
+    </div>
+    <div class="tool-icon">
+        <i class="fas fa-piggy-bank"></i>
+    </div>
+
+    </div>
+    <div class="expense-item">
+        <label for="debt-payments">Debt Payments</label>
+        <div class="input-with-icon">
+            <i class="fas fa-dollar-sign"></i>
+            <input type="number" id="debt-payments" min="0" step="1">
+        </div>
+    </div>
+    </div>
+    </div>
+    <button type="submit" class="btn btn-primary">Calculate Budget</button>
+    </form>
+    </div>
+    <div class="tool-results" id="budget-results">
+        <div class="results-header">
+            <h3>Your Budget Breakdown</h3>
+        </div>
+        <div class="results-content">
+            <div class="chart-container">
+                <canvas id="budget-chart"></canvas>
+            </div>
+            <div class="budget-summary">
+                <div class="summary-item">
+                    <h4>Weekly Income</h4>
+                    <p id="summary-income">$0</p>
+                </div>
+                <div class="summary-item">
+                    <h4>Total Expenses</h4>
+                    <p id="summary-expenses">$0</p>
+                </div>
+                <div class="summary-item">
+                    <h4>Remaining</h4>
+                    <p id="summary-remaining">$0</p>
+                </div>
+            </div>
+            <div class="budget-categories">
+                <div class="category-item needs">
+                    <h4>Needs (50%)</h4>
+                    <div class="category-details">
+                        <div class="category-allocation">
+                            <p>Recommended: <span id="needs-recommended">$0</span></p>
+                            <p>Actual: <span id="needs-actual">$0</span></p>
+                        </div>
+                        <div class="category-bar">
+                            <div class="bar-fill" id="needs-bar"></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="category-item wants">
+                    <h4>Wants (30%)</h4>
+                    <div class="category-details">
+                        <div class="category-allocation">
+                            <p>Recommended: <span id="wants-recommended">$0</span></p>
+                            <p>Actual: <span id="wants-actual">$0</span></p>
+                        </div>
+                        <div class="category-bar">
+                            <div class="bar-fill" id="wants-bar"></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="category-item savings">
+                    <h4>Savings & Debt (20%)</h4>
+                    <div class="category-details">
+                        <div class="category-allocation">
+                            <p>Recommended: <span id="savings-recommended">$0</span></p>
+                            <p>Actual: <span id="savings-actual">$0</span></p>
+                        </div>
+                        <div class="category-bar">
+                            <div class="bar-fill" id="savings-bar"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="budget-tips">
+                <h4>Budget Tips</h4>
+                <ul id="budget-tips-list">
+                    <li>Start by tracking your expenses for a month to get a clear picture of your spending habits.</li>
+                    <li>Aim to keep your needs at or below 50% of your income.</li>
+                    <li>Try to save at least 20% of your income for future goals and emergencies.</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    </div>
+    </div>
+    </section>
+
+    <section class="tool-section" id="unit-converter">
+        <div class="container">
+            <div class="tool-header">
+                <h2>Unit <span class="gradient-text">Converter</span></h2>
+                <p>Convert between commonly used scientific units across different measurement types.</p>
+            </div>
+            <div class="tool-content">
+                <div class="tool-form">
+                    <form id="unit-converter-form">
+                        <div class="form-group">
+                            <label for="conversion-type">Conversion Type</label>
+                            <select id="conversion-type" required>
+                                <option value="length">Length (m, km, cm, mm, etc.)</option>
+                                <option value="mass">Mass (kg, g, mg, lb, etc.)</option>
+                                <option value="temperature">Temperature (°C, °F, K)</option>
+                                <option value="energy">Energy (J, kJ, cal, kcal)</option>
+                                <option value="volume">Volume (L, mL, m³, etc.)</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="from-unit">From Unit</label>
+                            <select id="from-unit" required>
+                                <!-- Units will be populated based on conversion type -->
+                            </select>
+                            <input type="number" id="from-value" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="to-unit">To Unit</label>
+                            <select id="to-unit" required>
+                                <!-- Units will be populated based on conversion type -->
+                            </select>
+                        </div>
+                        <button type="submit" class="btn btn-primary">Convert</button>
+                    </form>
+                </div>
+                <div class="conversion-result">
+                    <h3>Result</h3>
+                    <p id="conversion-output">Enter values above to convert</p>
+                    <button class="btn btn-secondary" id="copy-result">Copy Result</button>
+                </div>
+                <label for="contribution-frequency">Contribution Frequency</label>
+                <select id="contribution-frequency">
+                    <option value="weekly">Weekly</option>
+                    <option value="biweekly">Bi-weekly</option>
+                    <option value="monthly">Monthly</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="interest-rate">Annual Interest Rate (%) (Optional)</label>
+                <div class="input-with-icon">
+                    <i class="fas fa-percentage"></i>
+                    <input type="number" id="interest-rate" min="0" max="100" step="0.1" value="0">
+                </div>
+            </div>
+            <button type="submit" class="btn btn-primary">Calculate</button>
+            </form>
+        </div>
+        <div class="tool-results" id="savings-results">
+            <div class="results-header">
+                <h3>Your Savings Projection</h3>
+            </div>
+            <div class="results-content">
+                <div class="savings-summary">
+                    <div class="summary-item">
+                        <h4>Time to Reach Goal</h4>
+                        <p id="time-to-goal">0 months</p>
+                    </div>
+                    <div class="summary-item">
+                        <h4>Total Contributions</h4>
+                        <p id="total-contributions">$0</p>
+                    </div>
+                    <div class="summary-item">
+                        <h4>Interest Earned</h4>
+                        <p id="interest-earned">$0</p>
+                    </div>
+                </div>
+                <div class="chart-container">
+                    <canvas id="savings-chart"></canvas>
+                </div>
+                <div class="savings-milestones">
+                    <h4>Savings Milestones</h4>
+                    <div class="milestones-table">
+                        <table id="milestones-table">
+                            <thead>
+                                <tr>
+                                    <th>Time</th>
+                                    <th>Balance</th>
+                                    <th>% of Goal</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <!-- Milestones will be added here dynamically -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <div class="savings-tips">
+                    <h4>Savings Tips</h4>
+                    <ul id="savings-tips-list">
+                        <li>Automate your savings by setting up automatic transfers on payday.</li>
+                        <li>Consider high-yield savings accounts or CDs for short-term goals.</li>
+                        <li>For long-term goals, look into investment options that may offer higher returns.</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        </div>
+        </div>
+    </section>
+
+    <section class="tool-section" id="subscription-tracker">
+        <div class="container">
+            <div class="tool-header">
+                <h2>Subscription <span class="gradient-text">Tracker</span></h2>
+                <p>Track your monthly subscriptions and see how much you could save by cutting unnecessary services.</p>
+            </div>
+            <div class="tool-content">
+                <div class="tool-form">
+                    <form id="subscription-form">
+                        <div class="subscription-list" id="subscription-list">
+                            <div class="subscription-item">
+                                <div class="form-group">
+                                    <label for="sub-name-1">Subscription Name</label>
+                                    <input type="text" id="sub-name-1" placeholder="e.g., Netflix" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="sub-cost-1">Monthly Cost</label>
+                                    <div class="input-with-icon">
+                                        <i class="fas fa-dollar-sign"></i>
+                                        <input type="number" id="sub-cost-1" min="0" step="0.01" required>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="sub-category-1">Category</label>
+                                    <select id="sub-category-1">
+                                        <option value="entertainment">Entertainment</option>
+                                        <option value="music">Music</option>
+                                        <option value="news">News</option>
+                                        <option value="software">Software</option>
+                                        <option value="gaming">Gaming</option>
+                                        <option value="food">Food Delivery</option>
+                                        <option value="fitness">Fitness</option>
+                                        <option value="other">Other</option>
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label for="sub-essential-1">Essential?</label>
+                                    <select id="sub-essential-1">
+                                        <option value="no">No</option>
+                                        <option value="yes">Yes</option>
+                                    </select>
+                                </div>
+                                <button type="button" class="remove-subscription btn-icon" disabled><i
+                                        class="fas fa-trash"></i></button>
+                            </div>
+                        </div>
+                        <div class="form-actions">
+                            <button type="button" id="add-subscription" class="btn btn-secondary"><i
+                                    class="fas fa-plus"></i> Add Subscription</button>
+                            <button type="submit" class="btn btn-primary">Calculate</button>
+                        </div>
+                    </form>
+                </div>
+                <div class="tool-results" id="subscription-results">
+                    <div class="results-header">
+                        <h3>Your Subscription Analysis</h3>
+                    </div>
+                    <div class="results-content">
+                        <div class="subscription-summary">
+                            <div class="summary-item">
+                                <h4>Monthly Total</h4>
+                                <p id="monthly-total">$0</p>
+                            </div>
+                            <div class="summary-item">
+                                <h4>Yearly Total</h4>
+                                <p id="yearly-total">$0</p>
+                            </div>
+                            <div class="summary-item">
+                                <h4>Potential Savings</h4>
+                                <p id="potential-savings">$0</p>
+                            </div>
+                        </div>
+                        <div class="chart-container">
+                            <canvas id="subscription-chart"></canvas>
+                        </div>
+                        <div class="subscription-breakdown">
+                            <h4>Subscription Breakdown</h4>
+                            <div class="breakdown-table">
+                                <table id="subscription-table">
+                                    <thead>
+                                        <tr>
+                                            <th>Subscription</th>
+                                            <th>Category</th>
+                                            <th>Monthly Cost</th>
+                                            <th>Yearly Cost</th>
+                                            <th>Essential</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <!-- Subscriptions will be added here dynamically -->
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                        <div class="subscription-tips">
+                            <h4>Money-Saving Tips</h4>
+                            <ul id="subscription-tips-list">
+                                <li>Review your subscriptions regularly and cancel those you don't use frequently.</li>
+                                <li>Consider sharing subscription costs with family or friends when possible.</li>
+                                <li>Look for annual payment options, which often offer discounts compared to monthly
+                                    payments.</li>
+                                <li>Check if your credit card offers any subscription benefits or cashback.</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Templates Section -->
+    <section class="templates-section">
+        <div class="container">
+            <div class="section-header">
+                <h2>Download <span class="gradient-text">Templates</span></h2>
+                <p>Free templates and guides to help you communicate science effectively</p>
+            </div>
+            <div class="templates-grid">
+                <div class="template-card">
+                    <div class="template-icon">
+                        <i class="fas fa-file-excel"></i>
+                    </div>
+                    <h3>Data Collection Sheet</h3>
+                    <p>Standard template for organizing experimental data, with examples for different types of
+                        measurements.</p>
+                    <a href="#" class="btn btn-secondary">Download Excel</a>
+                </div>
+                <div class="template-card">
+                    <div class="template-icon">
+                        <i class="fas fa-file-excel"></i>
+                    </div>
+                    <h3>Statistical Analysis Template</h3>
+                    <p>Calculate basic statistics and create preliminary visualizations for your data.</p>
+                    <a href="#" class="btn btn-secondary">Download Excel</a>
+                </div>
+                <div class="template-card">
+                    <div class="template-icon">
+                        <i class="fas fa-file-pdf"></i>
+                    </div>
+                    <h3>Data Visualization Guide</h3>
+                    <p>How to create clear and effective charts, graphs, and data visualizations for science projects.
+                    </p>
+                    <a href="#" class="btn btn-secondary">Download PDF</a>
+                </div>
+                <div class="template-card">
+                    <div class="template-icon">
+                        <i class="fas fa-file-pdf"></i>
+                    </div>
+                    <h3>Lab Report Template</h3>
+                    <p>Step-by-step template for writing clear, concise lab reports with examples.</p>
+                    <a href="#" class="btn btn-secondary">Download PDF</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Newsletter Section -->
+    <section class="newsletter">
+        <div class="container">
+            <div class="newsletter-content">
+                <h2>Join Our <span class="gradient-text">Newsletter</span></h2>
+                <p>Get weekly student science highlights, articles, and opportunities delivered straight to your inbox.
+                </p>
+                <form id="newsletter-form" class="newsletter-form">
+                    <input type="email" placeholder="Your email address" required>
+                    <button type="submit" class="btn btn-primary">Subscribe</button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-logo">
+                    <img src="../assets/images/logo-light.svg" alt="OpenScope logo" style="height:34px;">
+                    <p>OpenScope is a student-led science communication initiative. We are not a 501(c)(3) nonprofit and
+                        do not engage in fundraising; our focus is on open collaboration and community impact.</p>
+                </div>
+                <div class="footer-links">
+                    <div class="footer-links-column">
+                        <h3>Navigation</h3>
+                        <ul>
+                            <li><a href="index.html">Home</a></li>
+                            <li><a href="about.html">About</a></li>
+                            <li><a href="articles.html">Articles</a></li>
+                            <li><a href="tools.html">Tools</a></li>
+                        </ul>
+                    </div>
+                    <!--<div class="footer-links-column">
+                        <h3>Resources</h3>
+                        <ul>
+                           Coming soon!
+                        </ul>
+                    </div>
+                    <div class="footer-links-column">
+                        <h3>Company</h3>
+                        <ul>
+                            Coming soon!
+                        </ul>
+                    </div>
+                    <div class="footer-links-column">
+                        <h3>Legal</h3>
+                        <ul>
+                            <li><a href="#">Terms of Service</a></li>
+                            <li><a href="#">Privacy Policy</a></li>
+                            <li><a href="#">Cookie Policy</a></li>
+                            <li><a href="#">Disclaimer</a></li>
+                        </ul>
+                    </div>-->
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 OpenScope. All rights reserved.</p>
+                <div class="social-links">
+                    <a href="https://instagram.com/openscope.team" aria-label="OpenScope Instagram"><i
+                            class="fab fa-instagram"></i></a>
+                    <a href="https://twitter.com/OpenScopeWrite" aria-label="OpenScope Twitter"><i
+                            class="fab fa-twitter"></i></a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- AI Chatbot -->
+    <div class="chatbot-container" id="chatbot-container">
+        <div class="chatbot-header">
+            <h3><i class="fas fa-robot"></i> OpenScope AI Assistant</h3>
+            <button id="close-chat" class="close-btn"><i class="fas fa-times"></i></button>
+        </div>
+        <div class="chatbot-messages" id="chatbot-messages">
+            <div class="message bot-message">
+                <div class="message-content">
+                    <p>Hi there! I'm the OpenScope AI Assistant. Ask me about articles, topics, or science communication
+                        tips.</p>
+                </div>
+            </div>
+        </div>
+        <div class="chatbot-input">
+            <input type="text" id="chat-input" placeholder="Ask me about articles, topics, or science communication...">
+            <button id="send-message" class="send-btn"><i class="fas fa-paper-plane"></i></button>
+        </div>
+    </div>
+
+    <!-- Auth Modals -->
+    <div class="modal" id="login-modal">
+        <div class="modal-content">
+            <span class="close-modal">&times;</span>
+            <h2>Log In</h2>
+            <form id="login-form">
+                <div class="form-group">
+                    <label for="login-email">Email</label>
+                    <input type="email" id="login-email" required>
+                </div>
+                <div class="form-group">
+                    <label for="login-password">Password</label>
+                    <input type="password" id="login-password" required>
+                </div>
+                <button type="submit" class="btn btn-primary">Log In</button>
+            </form>
+            <p class="modal-footer">Don't have an account? <a href="#" id="signup-link">Sign Up</a></p>
+        </div>
+    </div>
+
+    <div class="modal" id="signup-modal">
+        <div class="modal-content">
+            <span class="close-modal">&times;</span>
+            <h2>Sign Up</h2>
+            <form id="signup-form">
+                <div class="form-group">
+                    <label for="signup-name">Full Name</label>
+                    <input type="text" id="signup-name" required>
+                </div>
+                <div class="form-group">
+                    <label for="signup-email">Email</label>
+                    <input type="email" id="signup-email" required>
+                </div>
+                <div class="form-group">
+                    <label for="signup-password">Password</label>
+                    <input type="password" id="signup-password" required>
+                </div>
+                <div class="form-group">
+                    <label for="signup-confirm-password">Confirm Password</label>
+                    <input type="password" id="signup-confirm-password" required>
+                </div>
+                <button type="submit" class="btn btn-primary">Sign Up</button>
+            </form>
+            <p class="modal-footer">Already have an account? <a href="#" id="login-link">Log In</a></p>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="../utils/supabase.js"></script>
+    <script src="../utils/groq.js"></script>
+    <script src="../assets/js/main.js"></script>
+    <script src="../assets/js/tools.js"></script>
+</body>
+
+</html>

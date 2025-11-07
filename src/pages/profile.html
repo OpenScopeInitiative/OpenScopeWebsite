@@ -1,0 +1,577 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head><!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-B6HP90EZLW"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag() { dataLayer.push(arguments); }
+        gtag('js', new Date());
+
+        gtag('config', 'G-B6HP90EZLW');
+    </script>
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+    <link rel="manifest" href="/site.webmanifest">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Profile - OpenScope</title>
+    <link rel="stylesheet" href="../assets/css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Noto+Sans:ital,wght@0,100..900;1,100..900&family=Playfair+Display:ital,wght@0,400..900;1,400..900&family=Roboto:ital,wght@0,100..900;1,100..900&family=ZCOOL+QingKe+HuangYou&display=swap"
+        rel="stylesheet">
+</head>
+<style>
+    .profile-container {
+        max-width: 800px;
+        margin: 0 auto;
+        padding: var(--spacing-xl);
+        background-color: white;
+        border-radius: var(--border-radius-lg);
+        box-shadow: var(--shadow-md);
+    }
+
+    .profile-header {
+        display: flex;
+        align-items: center;
+        gap: var(--spacing-xl);
+        margin-bottom: var(--spacing-xl);
+        padding-bottom: var(--spacing-lg);
+        border-bottom: 1px solid var(--gray-light);
+    }
+
+    .profile-avatar {
+        width: 100px;
+        height: 100px;
+        border-radius: var(--border-radius-full);
+        background: var(--primary-gradient);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: white;
+        font-size: 2.5rem;
+        font-weight: 600;
+    }
+
+    .profile-info h1 {
+        margin-bottom: var(--spacing-xs);
+    }
+
+    .profile-info p {
+        color: var(--gray-dark);
+        margin-bottom: 0;
+    }
+
+    .profile-tabs {
+        display: flex;
+        border-bottom: 1px solid var(--gray-light);
+        margin-bottom: var(--spacing-xl);
+    }
+
+    .profile-tab {
+        padding: var(--spacing-md) var(--spacing-lg);
+        cursor: pointer;
+        font-weight: 500;
+        color: var(--gray-dark);
+        position: relative;
+    }
+
+    .profile-tab.active {
+        color: var(--primary-color);
+    }
+
+    .profile-tab.active::after {
+        content: '';
+        position: absolute;
+        bottom: -1px;
+        left: 0;
+        width: 100%;
+        height: 2px;
+        background: var(--primary-gradient);
+    }
+
+    .tab-content {
+        display: none;
+    }
+
+    .tab-content.active {
+        display: block;
+    }
+
+    .form-row {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: var(--spacing-lg);
+        margin-bottom: var(--spacing-lg);
+    }
+
+    @media (max-width: 768px) {
+        .form-row {
+            grid-template-columns: 1fr;
+        }
+
+        .profile-header {
+            flex-direction: column;
+            text-align: center;
+        }
+    }
+
+    .saved-articles {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+        gap: var(--spacing-lg);
+    }
+
+    .saved-article-card {
+        background-color: white;
+        border-radius: var(--border-radius-md);
+        overflow: hidden;
+        box-shadow: var(--shadow-sm);
+        transition: var(--transition-normal);
+    }
+
+    .saved-article-card:hover {
+        transform: translateY(-5px);
+        box-shadow: var(--shadow-md);
+    }
+
+    .saved-article-image {
+        height: 150px;
+        overflow: hidden;
+    }
+
+    .saved-article-image img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+    }
+
+    .saved-article-content {
+        padding: var(--spacing-md);
+    }
+
+    .saved-article-content h3 {
+        font-size: 1rem;
+        margin-bottom: var(--spacing-xs);
+    }
+
+    .saved-article-actions {
+        display: flex;
+        justify-content: space-between;
+        margin-top: var(--spacing-sm);
+    }
+
+    .saved-article-actions a {
+        font-size: 0.9rem;
+        font-weight: 500;
+    }
+
+    .remove-saved {
+        color: var(--danger-color);
+    }
+
+    .no-saved-articles {
+        text-align: center;
+        padding: var(--spacing-xl);
+        color: var(--gray-dark);
+    }
+
+    .writer-status {
+        background-color: var(--primary-light);
+        color: white;
+        padding: 0.25rem 0.5rem;
+        border-radius: var(--border-radius-sm);
+        font-size: 0.8rem;
+        font-weight: 500;
+        margin-left: var(--spacing-sm);
+    }
+</style>
+</head>
+
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="container">
+            <div class="logo">
+                <a href="../../index.html">
+                    <img src="../../src/assets/images/logo-light.svg" alt="OpenScope logo" style="height:42px;">
+                </a>
+            </div>
+            <div class="nav-links">
+                <ul>
+                    <li><a href="../../index.html">Home</a></li>
+                    <li><a href="about.html">About</a></li>
+                    <li><a href="articles.html">Articles</a></li>
+                    <li><a href="tools.html">Tools</a></li>
+                    <li><a href="#" id="chat-toggle" class="chat-btn"><i class="fas fa-robot"></i> AI Chat</a></li>
+                </ul>
+            </div>
+            <div class="auth-buttons">
+                <!-- Will be dynamically replaced based on auth state -->
+            </div>
+            <div class="hamburger">
+                <span class="bar"></span>
+                <span class="bar"></span>
+                <span class="bar"></span>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main style="padding-top: 120px; padding-bottom: var(--spacing-xxl);">
+        <div class="container">
+            <div class="profile-container">
+                <div class="profile-header">
+                    <div class="profile-avatar" id="profile-avatar">
+                        <!-- Will be filled with user's initials -->
+                    </div>
+                    <div class="profile-info">
+                        <h1 id="profile-name">Loading...</h1>
+                        <p id="profile-email">Loading...</p>
+                        <span id="writer-badge" class="writer-status" style="display: none;">Writer</span>
+                    </div>
+                </div>
+
+                <div class="profile-tabs">
+                    <div class="profile-tab active" data-tab="account">Account Settings</div>
+                    <div class="profile-tab" data-tab="saved">Saved Articles</div>
+                    <div class="profile-tab" id="writer-tab" style="display: none;" data-tab="writer">Writer Dashboard
+                    </div>
+                </div>
+
+                <div class="tab-content active" id="account-tab">
+                    <form id="profile-form">
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="name">Full Name</label>
+                                <input type="text" id="name" name="name" required>
+                            </div>
+                            <div class="form-group" style="opacity:0.25;pointer-events:none;">
+                                <label for="email">Email</label>
+                                <input type="email" id="email" name="email" required readonly>
+                            </div>
+                        </div>
+
+                        <div class="form-group" style="display:none;">
+                            <label for="bio">Bio</label>
+                            <textarea id="bio" name="bio" rows="4"></textarea>
+                        </div>
+
+                        <button type="submit" class="btn btn-primary">Save Changes</button>
+                    </form>
+                </div>
+
+                <div class="tab-content" id="saved-tab">
+                    <div id="saved-articles-container" class="saved-articles">
+                        <!-- Will be populated with saved articles -->
+                        <div class="no-saved-articles">
+                            <p>You haven't saved any articles yet.</p>
+                            <a href="articles.html" class="btn btn-primary">Browse Articles</a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="tab-content" id="writer-tab-content">
+                    <div class="writer-dashboard-preview">
+                        <h2>Writer Dashboard</h2>
+                        <p>As a writer, you can create and manage your articles from the Writer Dashboard.</p>
+                        <a href="writer-dashboard.html" class="btn btn-primary">Go to Writer Dashboard</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-logo">
+                    <img src="../assets/images/logo-light.svg" alt="OpenScope logo" style="height:34px;">
+                    <p>OpenScope is a student-led science communication initiative. We are not a 501(c)(3) nonprofit and
+                        do not engage in fundraising; our focus is on open collaboration and community impact.</p>
+                </div>
+                <div class="footer-links">
+                    <div class="footer-links-column">
+                        <h3>Navigation</h3>
+                        <ul>
+                            <li><a href="index.html">Home</a></li>
+                            <li><a href="about.html">About</a></li>
+                            <li><a href="articles.html">Articles</a></li>
+                            <li><a href="tools.html">Tools</a></li>
+                        </ul>
+                    </div>
+                    <!--<div class="footer-links-column">
+                        <h3>Resources</h3>
+                        <ul>
+                           Coming soon!
+                        </ul>
+                    </div>
+                    <div class="footer-links-column">
+                        <h3>Company</h3>
+                        <ul>
+                            Coming soon!
+                        </ul>
+                    </div>
+                    <div class="footer-links-column">
+                        <h3>Legal</h3>
+                        <ul>
+                            <li><a href="#">Terms of Service</a></li>
+                            <li><a href="#">Privacy Policy</a></li>
+                            <li><a href="#">Cookie Policy</a></li>
+                            <li><a href="#">Disclaimer</a></li>
+                        </ul>
+                    </div>-->
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 OpenScope. All rights reserved.</p>
+                <div class="social-links">
+                    <a href="https://instagram.com/openscope.team" aria-label="OpenScope Instagram"><i
+                            class="fab fa-instagram"></i></a>
+                    <a href="https://twitter.com/OpenScopeWrite" aria-label="OpenScope Twitter"><i
+                            class="fab fa-twitter"></i></a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- AI Chatbot -->
+    <div class="chatbot-container" id="chatbot-container">
+        <div class="chatbot-header">
+            <h3><i class="fas fa-robot"></i> OpenScope AI Assistant</h3>
+            <button id="close-chat" class="close-btn"><i class="fas fa-times"></i></button>
+        </div>
+        <div class="chatbot-messages" id="chatbot-messages">
+            <div class="message bot-message">
+                <div class="message-content">
+                    <p>Hi there! I'm the OpenScope AI Assistant. Ask me about articles, topics, or science communication
+                        tips.</p>
+                </div>
+            </div>
+        </div>
+        <div class="chatbot-input">
+            <input type="text" id="chat-input" placeholder="Ask me about articles, topics, or science communication...">
+            <button id="send-message" class="send-btn"><i class="fas fa-paper-plane"></i></button>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="../utils/supabase.js"></script>
+    <script src="../utils/groq.js"></script>
+    <script src="../assets/js/main.js"></script>
+    <script>
+        // Profile Page Specific JavaScript
+        document.addEventListener('DOMContentLoaded', () => {
+            // Tab Switching
+            const tabs = document.querySelectorAll('.profile-tab');
+            const tabContents = document.querySelectorAll('.tab-content');
+
+            tabs.forEach(tab => {
+                tab.addEventListener('click', () => {
+                    const tabId = tab.getAttribute('data-tab');
+
+                    // Remove active class from all tabs and contents
+                    tabs.forEach(t => t.classList.remove('active'));
+                    tabContents.forEach(c => c.classList.remove('active'));
+
+                    // Add active class to clicked tab and corresponding content
+                    tab.classList.add('active');
+                    document.getElementById(`${tabId}-tab${tabId === 'writer' ? '-content' : ''}`).classList.add('active');
+                });
+            });
+
+            // Load User Profile
+            async function loadUserProfile() {
+                try {
+                    const { data } = await supabase.auth.getSession();
+
+                    if (data.session) {
+                        const user = data.session.user;
+
+                        // Set profile info
+                        document.getElementById('profile-name').textContent = user.user_metadata.name || 'User';
+                        document.getElementById('profile-email').textContent = user.email;
+
+                        // Set avatar initials
+                        const name = user.user_metadata.name || 'User';
+                        const initials = name.split(' ').map(n => n[0]).join('').toUpperCase();
+                        document.getElementById('profile-avatar').textContent = initials;
+
+                        // Fill form fields
+                        document.getElementById('name').value = user.user_metadata.name || '';
+                        document.getElementById('email').value = user.email;
+
+                        // Check if user is a writer
+                        const isWriterStatus = await isWriter(user.email);
+                        if (isWriterStatus) {
+                            document.getElementById('writer-badge').style.display = 'inline-block';
+                            document.getElementById('writer-tab').style.display = 'block';
+                        }
+
+                        // Load saved articles
+                        loadSavedArticles(user.id);
+                    } else {
+                        // Redirect to home if not logged in
+                        window.location.href = '../../index.html';
+                    }
+                } catch (error) {
+                    console.error('Error loading profile:', error);
+                    // Show error notification
+                    showNotification('Error loading profile. Please try again later.', 'error');
+                }
+            }
+
+            // Load Saved Articles
+            async function loadSavedArticles(userId) {
+                try {
+                    const container = document.getElementById('saved-articles-container');
+
+                    // Fetch saved articles from localStorage
+                    const savedArticleIds = JSON.parse(localStorage.getItem('savedArticles') || '[]');
+
+                    // If no saved articles, show empty state
+                    if (savedArticleIds.length === 0) {
+                        container.innerHTML = `
+                            <div class="no-saved-articles">
+                                <p>You haven't saved any articles yet.</p>
+                                <a href="articles.html" class="btn btn-primary">Browse Articles</a>
+                            </div>
+                        `;
+                        return;
+                    }
+
+                    // Fetch article details for each saved article ID
+                    const savedArticles = [];
+
+                    try {
+                        for (const id of savedArticleIds) {
+                            const article = await getArticleById(id);
+                            if (article) {
+                                savedArticles.push(article);
+                            }
+                        }
+                    } catch (error) {
+                        console.error('Error fetching saved article details:', error);
+                        // Removed error notification to avoid blocking loading
+                    }
+
+
+                    if (savedArticles.length > 0) {
+                        container.innerHTML = '';
+
+                        savedArticles.forEach(article => {
+                            const articleCard = document.createElement('div');
+                            articleCard.classList.add('saved-article-card');
+
+                            articleCard.innerHTML = `
+                                <div class="saved-article-image">
+                                    <img src="${article.image_url}" alt="${article.title}">
+                                </div>
+                                <div class="saved-article-content">
+                                    <h3>${article.title}</h3>
+                                    <div class="saved-article-actions">
+                                        <a href="article.html?id=${article.id}" class="read-more">Read <i class="fas fa-arrow-right"></i></a>
+                                        <a href="#" class="remove-saved" data-id="${article.id}">Remove</a>
+                                    </div>
+                                </div>
+                            `;
+
+                            container.appendChild(articleCard);
+                        });
+
+                        // Add event listeners to remove buttons
+                        document.querySelectorAll('.remove-saved').forEach(btn => {
+                            btn.addEventListener('click', (e) => {
+                                e.preventDefault();
+                                const articleId = btn.getAttribute('data-id');
+                                removeSavedArticle(articleId, userId);
+                            });
+                        });
+                    }
+                } catch (error) {
+                    console.error('Error loading saved articles:', error);
+                    // showNotification('Error loading saved articles', 'error');
+                }
+            }
+
+            // Remove Saved Article
+            async function removeSavedArticle(articleId, userId) {
+                try {
+                    // Get saved articles from localStorage
+                    const savedArticles = JSON.parse(localStorage.getItem('savedArticles') || '[]');
+
+                    // Remove the article ID from the saved articles
+                    const updatedSavedArticles = savedArticles.filter(id => id !== articleId);
+
+                    // Update localStorage
+                    localStorage.setItem('savedArticles', JSON.stringify(updatedSavedArticles));
+
+                    // Remove the article card from the DOM
+                    const articleCard = document.querySelector(`.remove-saved[data-id="${articleId}"]`).closest('.saved-article-card');
+                    if (articleCard) {
+                        articleCard.remove();
+                    }
+
+                    // Check if there are any saved articles left
+                    const container = document.getElementById('saved-articles-container');
+                    if (container.children.length === 0) {
+                        container.innerHTML = `
+                            <div class="no-saved-articles">
+                                <p>You haven't saved any articles yet.</p>
+                                <a href="articles.html" class="btn btn-primary">Browse Articles</a>
+                            </div>
+                        `;
+                    }
+
+                    showNotification('Article removed from saved articles', 'success');
+                } catch (error) {
+                    console.error('Error removing saved article:', error);
+                    showNotification('Error removing article', 'error');
+                }
+            }
+
+            // Update Profile
+            document.getElementById('profile-form').addEventListener('submit', async (e) => {
+                e.preventDefault();
+
+                try {
+                    const name = document.getElementById('name').value;
+                    const bio = document.getElementById('bio').value;
+
+                    const { data } = await supabase.auth.getSession();
+
+                    if (data.session) {
+                        const { error } = await supabase.auth.updateUser({
+                            data: { name, bio }
+                        });
+
+                        if (error) throw error;
+
+                        // Update profile display
+                        document.getElementById('profile-name').textContent = name;
+
+                        // Update avatar initials
+                        const initials = name.split(' ').map(n => n[0]).join('').toUpperCase();
+                        document.getElementById('profile-avatar').textContent = initials;
+
+                        showNotification('Profile updated successfully', 'success');
+                    }
+                } catch (error) {
+                    console.error('Error updating profile:', error);
+                    showNotification('Error updating profile', 'error');
+                }
+            });
+
+            // Initialize
+            loadUserProfile();
+        });
+    </script>
+</body>
+
+</html>
