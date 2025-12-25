@@ -1,12 +1,12 @@
 /* ===== VARIABLES ===== */
 :root {
   /* Colors */
-  --primary-color: #0d2543; /* OpenScope Navy */
-  --primary-light: #244066;
-  --primary-dark: #081426;
+  --primary-color: #0572f6; /* OpenScope Navy */
+  --primary-light: #025bd9;
+  --primary-dark: #084db4;
   --secondary-color: #2e6fa3; /* accent */
   --secondary-light: #4a88bf;
-  --secondary-dark: #133e5f;
+  --secondary-dark: #115e98;
   --dark-color: #000000;
   --dark-light: #334155;
   --light-color: #f8fafc;
@@ -35,7 +35,7 @@
   );
 
   /* Typography */
-  --heading-font: "Roboto", sans-serif;
+  --heading-font: "Playfair Display", sans-serif;
   --body-font: "Noto Sans", sans-serif;
 
   /* Spacing */
