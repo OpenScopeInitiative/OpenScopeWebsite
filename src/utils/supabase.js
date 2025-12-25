@@ -8,9 +8,11 @@ const SUPABASE_KEY = "sb_publishable_q8RVt7a0JSpm6cWntlfiiA_d-jWxtQE";
 let supabase;
 try {
   supabase = createClient(SUPABASE_URL, SUPABASE_KEY);
+  window.supabase = supabase; // Make it globally available
 } catch (error) {
   console.error("Failed to create Supabase client:", error);
   supabase = null;
+  window.supabase = null;
 }
 
 // Authentication Functions
