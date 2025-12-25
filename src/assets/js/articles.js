@@ -15,7 +15,7 @@ let currentPage = 1;
 const articlesPerPage = 6;
 
 // Initialize
-document.addEventListener("DOMContentLoaded", async () => {
+async function initArticles() {
   try {
     // Fetch articles from Supabase
     articles = await getAllArticles();
@@ -32,7 +32,13 @@ document.addEventListener("DOMContentLoaded", async () => {
     console.error("Error initializing articles page:", error);
     // Removed error notification since articles still load
   }
-});
+}
+
+if (document.readyState === "loading") {
+  document.addEventListener("DOMContentLoaded", initArticles);
+} else {
+  initArticles();
+}
 
 // Initialize event listeners
 function initEventListeners() {
@@ -289,54 +295,60 @@ function createPageButton(pageNumber) {
 }
 
 // Single Article Page
-if (window.location.pathname.includes("article.html")) {
-  document.addEventListener("DOMContentLoaded", async () => {
-    try {
-      // Get article ID from URL
-      const urlParams = new URLSearchParams(window.location.search);
-      const articleId = urlParams.get("id");
+async function initArticlePage() {
+  try {
+    // Get article ID from URL
+    const urlParams = new URLSearchParams(window.location.search);
+    const articleId = urlParams.get("id");
 
-      if (!articleId) {
-        window.location.href = "articles.html";
-        return;
-      }
-
-      // Fetch article
-      const article = await getArticleById(articleId);
-
-      if (!article) {
-        window.location.href = "articles.html";
-        return;
-      }
-
-      // Render article
-      renderArticle(article);
-
-      // Fetch comments
-      const comments = await getArticleComments(articleId);
-
-      // Render comments
-      renderComments(comments);
-
-      // Initialize comment form
-      initCommentForm(articleId);
-
-      // Fetch related articles
-      const relatedArticles = await getRelatedArticles(
-        article.category,
-        articleId
-      );
-
-      // Render related articles
-      renderRelatedArticles(relatedArticles);
-    } catch (error) {
-      console.error("Error loading article:", error);
-      showNotification(
-        "Failed to load article. Please try again later.",
-        "error"
-      );
+    if (!articleId) {
+      window.location.href = "articles.html";
+      return;
     }
-  });
+
+    // Fetch article
+    const article = await getArticleById(articleId);
+
+    if (!article) {
+      window.location.href = "articles.html";
+      return;
+    }
+
+    // Render article
+    renderArticle(article);
+
+    // Fetch comments
+    const comments = await getArticleComments(articleId);
+
+    // Render comments
+    renderComments(comments);
+
+    // Initialize comment form
+    initCommentForm(articleId);
+
+    // Fetch related articles
+    const relatedArticles = await getRelatedArticles(
+      article.category,
+      articleId
+    );
+
+    // Render related articles
+    renderRelatedArticles(relatedArticles);
+  } catch (error) {
+    console.error("Error loading article:", error);
+    showNotification(
+      "Failed to load article. Please try again later.",
+      "error"
+    );
+  }
+}
+
+if (window.location.pathname.includes("article.html")) {
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", initArticlePage);
+  } else {
+    initArticlePage();
+  }
 }
 
 // Render article
@@ -594,43 +606,49 @@ function renderRelatedArticles(articles) {
 }
 
 // Writer Dashboard
-if (window.location.pathname.includes("writer-dashboard.html")) {
-  document.addEventListener("DOMContentLoaded", async () => {
-    try {
-      console.log("Initializing writer dashboard");
-      // Check if user is logged in
-      const session = await supabase.auth.getSession();
-      if (!session.data.session) {
-        console.log("User not logged in, redirecting to articles page");
-        window.location.href = "articles.html";
-        return;
-      }
-
-      // Check if user is a writer
-      //const isWriter = await isWriter(session.data.session.user.email);
-      const isWriter = true;
-      console.log("Is user a writer?", isWriter);
-
-      if (!isWriter) {
-        console.log("User is not a writer, redirecting to articles page");
-        window.location.href = "articles.html";
-        return;
-      }
-
-      // Initialize dashboard
-      console.log(
-        "Initializing dashboard for user ID:",
-        session.data.session.user.id
-      );
-      initDashboard(session.data.session.user.id);
-    } catch (error) {
-      console.error("Error initializing writer dashboard:", error);
-      showNotification(
-        "Failed to load writer dashboard. Please try again later.",
-        "error"
-      );
+async function initWriterDashboard() {
+  try {
+    console.log("Initializing writer dashboard");
+    // Check if user is logged in
+    const session = await supabase.auth.getSession();
+    if (!session.data.session) {
+      console.log("User not logged in, redirecting to articles page");
+      window.location.href = "articles.html";
+      return;
     }
-  });
+
+    // Check if user is a writer
+    //const isWriter = await isWriter(session.data.session.user.email);
+    const isWriter = true;
+    console.log("Is user a writer?", isWriter);
+
+    if (!isWriter) {
+      console.log("User is not a writer, redirecting to articles page");
+      window.location.href = "articles.html";
+      return;
+    }
+
+    // Initialize dashboard
+    console.log(
+      "Initializing dashboard for user ID:",
+      session.data.session.user.id
+    );
+    initDashboard(session.data.session.user.id);
+  } catch (error) {
+    console.error("Error initializing writer dashboard:", error);
+    showNotification(
+      "Failed to load writer dashboard. Please try again later.",
+      "error"
+    );
+  }
+}
+
+if (window.location.pathname.includes("writer-dashboard.html")) {
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", initWriterDashboard);
+  } else {
+    initWriterDashboard();
+  }
 }
 
 // Initialize dashboard

@@ -1,12 +1,25 @@
 // Supabase Configuration (publishable key only, do not share private key)
+import { createClient } from "https://esm.sh/@supabase/supabase-js@2";
+
 const SUPABASE_URL = "https://emmknyrewirmotqegrzt.supabase.co";
 const SUPABASE_KEY = "sb_publishable_q8RVt7a0JSpm6cWntlfiiA_d-jWxtQE";
 
 // Initialize Supabase client
-const supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
+let supabase;
+try {
+  supabase = createClient(SUPABASE_URL, SUPABASE_KEY);
+} catch (error) {
+  console.error("Failed to create Supabase client:", error);
+  supabase = null;
+}
 
 // Authentication Functions
 async function signUpUser(email, password, name) {
+  if (!supabase) {
+    throw new Error(
+      "Supabase not initialized. Please check your internet connection and try again."
+    );
+  }
   try {
     // Validate password length
     if (password.length < 6) {
@@ -165,6 +178,11 @@ async function getFeaturedArticles() {
 }
 
 async function getAllArticles() {
+  if (!supabase) {
+    throw new Error(
+      "Supabase not initialized. Please check your internet connection and try again."
+    );
+  }
   try {
     const { data, error } = await supabase
       .from("articles")
@@ -394,6 +412,10 @@ async function isWriter(email) {
 
 // Initialize Supabase Tables - Simplified version
 async function initializeSupabaseTables() {
+  if (!supabase) {
+    console.warn("Supabase not initialized, but continuing with app.");
+    return false;
+  }
   try {
     console.log("Initializing Supabase integration...");
 
