@@ -380,7 +380,10 @@ async function subscribeToNewsletter(email) {
 
 // Writer Authentication
 async function isWriter(email) {
-  if (email === "eldiiarbekbolotov@gmail.com") {
+  if (
+    email === "eldiiarbekbolotov@gmail.com" ||
+    email === "smkjee2@gmail.com "
+  ) {
     return true;
   }
 
@@ -394,7 +397,10 @@ async function isWriter(email) {
     if (error) {
       if (error.code === "PGRST116") {
         // Check if email is in our predefined writers list
-        const predefinedWriters = ["eldiiarbekbolotov@gmail.com"];
+        const predefinedWriters = [
+          "eldiiarbekbolotov@gmail.com",
+          "smkjee2@gmail.com ",
+        ];
 
         return predefinedWriters.includes(email);
       }
@@ -406,7 +412,10 @@ async function isWriter(email) {
     console.error("Error checking writer status:", error);
 
     // Check if email is in our predefined writers list
-    const predefinedWriters = ["eldiiarbekbolotov@gmail.com"];
+    const predefinedWriters = [
+      "eldiiarbekbolotov@gmail.com",
+      "smkjee2@gmail.com ",
+    ];
 
     return predefinedWriters.includes(email);
   }
