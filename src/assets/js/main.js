@@ -2,6 +2,40 @@
 const hamburger = document.querySelector(".hamburger");
 const navLinks = document.querySelector(".nav-links");
 const authButtons = document.querySelector(".auth-buttons");
+
+// Wrap nav links + auth in sidenav panel (full-screen left sidenav, no overlay)
+(function initSidenav() {
+  const navbar = document.querySelector(".navbar .container");
+  if (!navbar || !navLinks || !authButtons) return;
+
+  const panel = document.createElement("div");
+  panel.className = "sidenav-panel";
+  panel.setAttribute("aria-label", "Mobile menu");
+
+  navbar.insertBefore(panel, navLinks);
+  panel.appendChild(navLinks);
+  panel.appendChild(authButtons);
+})();
+
+// Material Design ripple effect for all buttons
+(function initRipple() {
+  document.addEventListener("click", function (e) {
+    const target = e.target.closest("button, a.btn");
+    if (!target) return;
+    const rect = target.getBoundingClientRect();
+    const size = Math.max(rect.width, rect.height);
+    const x = e.clientX - rect.left - size / 2;
+    const y = e.clientY - rect.top - size / 2;
+    const ripple = document.createElement("span");
+    ripple.className = "ripple";
+    ripple.style.width = ripple.style.height = size + "px";
+    ripple.style.left = x + "px";
+    ripple.style.top = y + "px";
+    target.appendChild(ripple);
+    ripple.addEventListener("animationend", () => ripple.remove());
+  });
+})();
+
 const chatToggle = document.getElementById("chat-toggle");
 const chatbotContainer = document.getElementById("chatbot-container");
 const closeChat = document.getElementById("close-chat");
@@ -23,14 +57,32 @@ const prevBtn = document.querySelector(".prev-btn");
 const nextBtn = document.querySelector(".next-btn");
 const testimonialSlider = document.querySelector(".testimonials-slider");
 
-// Mobile Navigation
+// Mobile Navigation (full-screen left sidenav, no overlay)
 if (hamburger) {
   hamburger.addEventListener("click", () => {
+    const panel = document.querySelector(".sidenav-panel");
+    const isOpening = !hamburger.classList.contains("active");
+
     hamburger.classList.toggle("active");
     navLinks.classList.toggle("active");
     authButtons.classList.toggle("active");
+    panel?.classList.toggle("active");
+    document.body.style.overflow = isOpening ? "hidden" : "";
   });
 }
+
+// Close sidenav when a nav link is clicked (mobile)
+document.querySelectorAll(".nav-links a").forEach((link) => {
+  link.addEventListener("click", () => {
+    if (window.innerWidth > 1000) return;
+    const panel = document.querySelector(".sidenav-panel");
+    document.querySelector(".hamburger")?.classList.remove("active");
+    navLinks?.classList.remove("active");
+    authButtons?.classList.remove("active");
+    panel?.classList.remove("active");
+    document.body.style.overflow = "";
+  });
+});
 
 // Chatbot Toggle
 if (chatToggle && chatbotContainer) {
@@ -76,7 +128,7 @@ function addMessageToChat(message, sender) {
   const messageElement = document.createElement("div");
   messageElement.classList.add("message");
   messageElement.classList.add(
-    sender === "user" ? "user-message" : "bot-message"
+    sender === "user" ? "user-message" : "bot-message",
   );
 
   const messageContent = document.createElement("div");
@@ -169,7 +221,7 @@ if (signupForm) {
     const email = document.getElementById("signup-email").value;
     const password = document.getElementById("signup-password").value;
     const confirmPassword = document.getElementById(
-      "signup-confirm-password"
+      "signup-confirm-password",
     ).value;
 
     if (password !== confirmPassword) {
@@ -572,3 +624,9 @@ async function handleAuthStateChange(user) {
     }
   }
 }
+
+// Set copyright year to current year
+(function () {
+  const el = document.getElementById("copyright-year");
+  if (el) el.textContent = new Date().getFullYear();
+})();
