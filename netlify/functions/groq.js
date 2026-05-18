@@ -59,7 +59,7 @@ exports.handler = async function (event, context) {
                         If asked about topics outside the site's scope, acknowledge and gently redirect to science communication or recommend external reputable sources.
                         If you don't know the answer, say so and offer suggestions for where to look (e.g., peer-reviewed journals, educational resources).
 
-                        Keep your responses concise (under ~150 words when possible), and prioritize clarity and accessibility for high-school students.
+                        Keep your responses concise (under ~150 words when possible), and prioritize clarity and accessibility for students.
                         `,
             },
             {
