@@ -226,13 +226,8 @@
   font-size: 1rem;
 }
 
-select {
-  width: 100%;
-  padding: 0.75rem;
-  border: 1px solid var(--gray-light);
+.form-group .md-select-trigger {
   border-radius: var(--border-radius-md);
-  font-size: 1rem;
-  background-color: white;
 }
 
 /* Budget Results Styles */

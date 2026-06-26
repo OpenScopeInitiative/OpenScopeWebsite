@@ -604,6 +604,7 @@ function addSubscription() {
     `;
 
   subscriptionList.appendChild(subscriptionItem);
+  window.initMaterialSelects?.(subscriptionItem);
 
   // Enable all remove buttons
   const removeButtons = document.querySelectorAll(".remove-subscription");
